@@ -135,8 +135,8 @@ GameObject:
   - component: {fileID: 150074557}
   - component: {fileID: 150074556}
   - component: {fileID: 150074554}
-  - component: {fileID: 150074553}
   - component: {fileID: 150074555}
+  - component: {fileID: 150074553}
   m_Layer: 0
   m_Name: ProPlayer
   m_TagString: Player
@@ -144,8 +144,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &150074553
-BoxCollider2D:
+--- !u!58 &150074553
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -157,19 +157,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.94, y: 1}
-    newSize: {x: 1, y: 1.0638298}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: 0.03, y: -0.13}
   serializedVersion: 2
-  m_Size: {x: 0.94, y: 1}
-  m_EdgeRadius: 0
+  m_Radius: 0.41
 --- !u!50 &150074554
 Rigidbody2D:
   serializedVersion: 4
@@ -203,8 +193,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aef19968e89b92249855d6558314d195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletSpawnTime: 1
+  playerBullet: {fileID: 1161823657404413928, guid: 3ee66290c60f2454a9ed4020eafaf280, type: 3}
+  bulletOrigins:
+  - {fileID: 1462427128}
+  - {fileID: 715940448}
+  - {fileID: 1431096887}
   camara: {fileID: 519420031}
-  speed: 40
+  speed: 2
   maxSpeed: 80
   bulletPosition: 0
   bulletPrefab: {fileID: 1161823657404413928, guid: 3ee66290c60f2454a9ed4020eafaf280, type: 3}
@@ -286,7 +282,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 150074552}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -3.93, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1462427129}
@@ -585,8 +581,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1347776135}
+  - component: {fileID: 1347776136}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Spawn Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -606,6 +603,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1347776136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347776134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f7ee7a27edad5e45900b19c0377ae9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enemies:
+  - {fileID: 1640597171456314231, guid: 4fb278d081fbcdc49a52549ad8a4002b, type: 3}
+  Asteroids: []
+  PowerUps:
+  - {fileID: 3810932526039250316, guid: 552de4309aa0d114080d1893572db6bb, type: 3}
+  enemyMaxSpawnTime: 2
+  enemyMinSpawnTime: 1
+  enemy: {fileID: 1640597171456314231, guid: 4fb278d081fbcdc49a52549ad8a4002b, type: 3}
+  powerUpMaxSpawnTime: 3
+  powerUpMinSpawnTime: 2
+  powerUpPrefab: {fileID: 3810932526039250316, guid: 552de4309aa0d114080d1893572db6bb, type: 3}
+  asteroidMaxSpawnTime: 6
+  asteroidMinSpawnTime: 3
+  asteroid: {fileID: 0}
+  camera: {fileID: 519420031}
+  enemySpawnTime: 0
+  deltaEnemySpawnTime: 0
+  powerUpSpawnTime: 0
+  deltaPowerUpSpawnTime: 0
+  asteroidSpawnTime: 0
+  deltaAsteroidSpawnTime: 0
 --- !u!1 &1431096887
 GameObject:
   m_ObjectHideFlags: 0

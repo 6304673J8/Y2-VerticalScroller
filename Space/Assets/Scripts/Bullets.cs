@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class Bullets : MonoBehaviour
 {
-    [SerializeField]
+    /*[SerializeField]
     private float bulletSpawnTime;
     private float bulletCurrentTime = 0f;
+    */
 
     [SerializeField]
-    private GameObject playerBullet;
-
-    [SerializeField]
-    private GameObject[] bulletOrigin;
-    
     private float speed;
     Rigidbody2D playerBulletRb;
 
@@ -23,12 +19,19 @@ public class Bullets : MonoBehaviour
         playerBulletRb.velocity = new Vector2(0f, speed);  
     }
 
-    void Update()
+    private void FixedUpdate()
     {
-        Shoot();
+        if (playerBulletRb.position.y >= 5.0f)
+        {
+            Destroy(gameObject);
+        }
     }
 
-    private void Shoot() { 
-       
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

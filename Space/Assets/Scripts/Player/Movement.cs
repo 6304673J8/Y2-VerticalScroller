@@ -24,9 +24,6 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        bool isMovingLeft = false;
-        bool isMovingRight = false;
-
         horizontal = InputController.Horizontal;
         if (Input.GetKey(KeyCode.A))
         {

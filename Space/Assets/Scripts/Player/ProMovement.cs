@@ -6,6 +6,18 @@ public class ProMovement : MonoBehaviour
 {
     private float direction;
 
+    [Header("Bullets")]
+    [SerializeField]
+    private float bulletSpawnTime;
+    private float bulletCurrentTime = 0f;
+
+    [SerializeField]
+    private GameObject playerBullet;
+
+    [SerializeField]
+    private GameObject[] bulletOrigins;
+
+    [Header("Camera")]
     [SerializeField]
     Camera camara;
     private Vector2 cameraXBounds;
@@ -16,14 +28,17 @@ public class ProMovement : MonoBehaviour
 
     private Rigidbody2D shipRb;
 
+    [Header("Stats")]
     [SerializeField]
     private float speed = 10;
     public float maxSpeed = 8;
+    private float powerUpMaxDuration = 10f;
+    private float powerUpCurrentTime = 0f;
 
     //bullets
     public float bulletPosition;
     public GameObject bulletPrefab;
-
+    private float randInt;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,9 +50,11 @@ public class ProMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         desiredMovement = new Vector2(Input.GetAxis("Horizontal"), 0f);
+
+        Shoot();
     }
 
     private void FixedUpdate()
@@ -68,5 +85,49 @@ public class ProMovement : MonoBehaviour
                 shipRb.velocity = shipRb.velocity.normalized * maxSpeed;
             }
         }*/
+    }
+
+    private void Shoot()
+    {
+        //Increase spawn time
+        bulletCurrentTime += Time.deltaTime;
+
+        if (bulletCurrentTime >= bulletSpawnTime) {
+            bulletCurrentTime = 0f;
+
+            for (int i = 0; i < bulletOrigins.Length; i++)
+            {
+                Instantiate(playerBullet, bulletOrigins[i].transform.position, Quaternion.identity);
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.tag == "PowerUp")
+        {
+            StartCoroutine(PowerUp());
+        }
+    }
+    IEnumerator PowerUp()
+    {
+        powerUpCurrentTime += Time.deltaTime;
+
+        if (Random.Range(0f, 1f) >= 0.5f)
+        {
+            speed *= 2f;
+            yield return new WaitForSeconds(10);
+            speed *= 0.5f;
+        }
+        else
+        {
+            bulletSpawnTime *= 0.5f;
+            yield return new WaitForSeconds(10);
+            bulletSpawnTime *= 2f;
+        }
     }
 }
